@@ -62,12 +62,13 @@ const BigChartBox = () => {
             bottom: 0,
           }}
         >
+          <Tooltip contentStyle={{background:"transparent"}}/>
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
-          <Area type="monotone" dataKey="electronics" stackId="1" stroke="#8884d8" fill="#8884d8" />
-          <Area type="monotone" dataKey="books" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
-          <Area type="monotone" dataKey="clothes" stackId="1" stroke="#ffc658" fill="#ffc658" />
+          <Area type="monotone" dataKey="electronics" stackId="1" stroke="#5f59da" fill="#8884d8" />
+          <Area type="monotone" dataKey="books" stackId="1" stroke="#5cc885" fill="#82ca9d" />
+          <Area type="monotone" dataKey="clothes" stackId="1" stroke="#ffbd39" fill="#ffc658" />
         </AreaChart>
       </ResponsiveContainer>
       </div>
