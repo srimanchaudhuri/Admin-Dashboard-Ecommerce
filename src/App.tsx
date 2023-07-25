@@ -6,12 +6,14 @@ import Login from "./pages/login/Login";
 import Products from "./pages/products/Products"
 import Users from "./pages/users/Users"
 import { 
-  BrowserRouter as Router, 
+
   Outlet,
   createBrowserRouter,
   RouterProvider
 } from "react-router-dom";
 import "./styles/global.scss"
+import User from "./pages/user/User";
+import Product from "./pages/product/Product";
 
 
 function App() {
@@ -47,6 +49,14 @@ function App() {
         {
           path:'/products',
           element:<Products/>
+        },
+        {
+          path:'/users/:id',
+          element:<User/>
+        },
+        {
+          path:'/products/:id',
+          element:<Product/>
         },
       ]
     },
