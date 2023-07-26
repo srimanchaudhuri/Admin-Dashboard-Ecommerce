@@ -15,10 +15,21 @@ import "./styles/global.scss"
 import User from "./pages/user/User";
 import Product from "./pages/product/Product";
 
+let isAdmin : boolean
+
+const persistedDataString = localStorage.getItem("persist:root");
+if (persistedDataString !== null) {
+   isAdmin = JSON.parse(JSON.parse(persistedDataString).user).currentUser.isAdmin 
+  console.log(isAdmin);
+}
 
 function App() {
+
+  const admin = isAdmin
+
   const Layout = () => {
     return (
+      admin ? (<>
       <div className="main">
         <Navbar/>
         <div className="container">
@@ -31,6 +42,12 @@ function App() {
         </div>
         <Footer/>
       </div>
+      </>
+    )
+    :
+    (
+      <Login/>
+    )
     )
   }
   const router = createBrowserRouter([
