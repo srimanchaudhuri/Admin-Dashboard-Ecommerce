@@ -1,12 +1,14 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Add from "../../components/add/Add"
 import DataTable from "../../components/dataTable/DataTable"
 import "./products.scss"
 import { GridColDef } from "@mui/x-data-grid";
-import { products } from "../../data";
+
+import { getProducts } from "../../redux/apiCalls";
+import { useDispatch, useSelector } from "react-redux";
 
 const columns: GridColDef[] = [
-  { field: "id", headerName: "ID", width: 90 },
+  { field: "_id", headerName: "ID", width: 90 },
   {
     field: "img",
     headerName: "Image",
@@ -55,18 +57,27 @@ const columns: GridColDef[] = [
 
 
 const Products = () => {
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+  const products = useSelector((state: any) => state.product.products);
+
+  useEffect(() => {
+    getProducts(dispatch);
+  }, []);
+
+  const getRowId = (row: any) => row._id; // Define a function to get row IDs
 
   return (
     <div className="products">
-        <div className="info">
-          <h1>Products</h1>
-          <button onClick={() => setOpen(true)}>Add New User</button>
-        </div>
-        <DataTable slug="products" columns={columns} rows={products}/>
-        {open && <Add slug="product" columns={columns} setOpen={setOpen}/>}
+      <div className="info">
+        <h1>Products</h1>
+        <button onClick={() => setOpen(true)}>Add New Product</button>
       </div>
-    )
-}
+      {/* Pass the 'getRowId' prop to the DataTable */}
+      <DataTable slug="products" columns={columns} rows={products} getRowId={getRowId} />
+      {open && <Add slug="product" columns={columns} setOpen={setOpen} />}
+    </div>
+  );
+};
 
-export default Products
+export default Products;

@@ -26,7 +26,7 @@ const Add = (props:Props) => {
             .map(column => (
                 <div className="item">
                     <label>{column.headerName}</label>
-                    <input type={column.type} placeholder={column.field}/>
+                    <input name={column.field} type={column.type} placeholder={column.field}/>
                 </div>
             ))}
             <button>Send</button>

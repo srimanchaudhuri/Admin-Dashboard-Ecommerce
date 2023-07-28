@@ -5,12 +5,12 @@ type Props = {
   id:number;
   img?:string;
   title:string;
-  info:object;
+  info?:object;
   chart?:{
     dataKeys:{name:string; color:string} [];
     data:object[];
   };
-  activities:{ time: string; text: string } [];
+  activities?:{ time: string; text: string } [];
 }
 
 const Single = (props: Props) => {
@@ -24,7 +24,7 @@ const Single = (props: Props) => {
             <button>update</button>
           </div>
           <div className="details">
-          {Object.entries(props.info).map(item => (
+          {props.info && Object.entries(props.info).map(item => (
             <div className="item" key={item[0]}>
               <span className="itemTitle">{item[0]}</span>
               <span className="itemValue">{item[1]}</span>
@@ -60,7 +60,7 @@ const Single = (props: Props) => {
       </ResponsiveContainer>
         </div>}
       </div>
-      <div className="activities">
+      {props.activities && <div className="activities">
         <h2>Latest Activities</h2>
           {props.activities && (<ul>
             {props.activities.map(activity => (
@@ -73,7 +73,7 @@ const Single = (props: Props) => {
             ))}
         </ul>
         )} 
-      </div>
+      </div>}
     </div>
   )
 }

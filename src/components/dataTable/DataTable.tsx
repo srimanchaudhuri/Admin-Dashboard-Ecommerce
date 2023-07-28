@@ -3,18 +3,22 @@
 import { Link } from "react-router-dom"
 import "./dataTable.scss"
 import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid"
+import { deleteProduct } from "../../redux/apiCalls";
+import { useDispatch } from "react-redux";
 
 
 type Props = {
   columns: GridColDef[],
   rows: object[],
-  slug: string
+  slug: string,
+  getRowId?: (row: any) => any; // Make 'getRowId' prop optional
 }
 
 const DataTable = (props:Props) => {
+  const dispatch = useDispatch()
 
   const handleDelete = (id:number)=>{
-    console.log(id)
+    deleteProduct(id, dispatch)
   }
 
 
@@ -26,10 +30,10 @@ const DataTable = (props:Props) => {
     renderCell:(params) => {
       return (
         <div className="action">
-          <Link to={`/${props.slug}/${params.row.id}`}>
+          <Link to={`/${props.slug}/${params.row._id}`}>
           <img src="/view.svg" alt="" />
           </Link>
-          <div className="delete" onClick={() => handleDelete(params.row.id)}>
+          <div className="delete" onClick={() => handleDelete(params.row._id)}>
             <img src="/delete.svg" alt="" />
           </div>
         </div>
@@ -44,6 +48,7 @@ const DataTable = (props:Props) => {
       className="dataGrid"
         rows={props.rows}
         columns={[...props.columns, actionColumn]}
+        getRowId={props.getRowId} // Pass the 'getRowId' prop here
         initialState={{
           pagination: {
             paginationModel: {
